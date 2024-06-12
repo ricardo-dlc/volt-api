@@ -10,6 +10,7 @@ import med.volt.api.address.AddressDTO;
 public record MedicDTO(
 		@NotBlank String fullName,
 		@NotBlank @Email String email,
+		@NotBlank String phone,
 		@NotBlank @Pattern(regexp = "\\d{4,6}") String document,
 		@NotNull Specialty speciality,
 		@NotNull @Valid AddressDTO address) {

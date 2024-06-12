@@ -1,0 +1,1 @@
+ALTER TABLE medics ADD phone VARCHAR(20) NOT NULL;

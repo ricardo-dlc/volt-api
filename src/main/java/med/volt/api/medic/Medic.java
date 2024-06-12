@@ -13,7 +13,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.volt.api.address.Address;
-import med.volt.api.address.AddressDTO;
 
 @Table(name = "medics")
 @Entity(name = "Medic")
@@ -27,6 +26,7 @@ public class Medic {
 	private Long id;
 	private String fullName;
 	private String email;
+	private String phone;
 	private String document;
 	@Enumerated(EnumType.STRING)
 	private Specialty speciality;
@@ -39,5 +39,6 @@ public class Medic {
 		this.document = medicDTO.document();
 		this.email = medicDTO.email();
 		this.speciality = medicDTO.speciality();
+		this.phone = medicDTO.phone();
 	}
 }
