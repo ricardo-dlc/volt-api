@@ -1,6 +1,6 @@
 package med.volt.api.address;
 
-public record AddressData(
+public record AddressDTO(
 		String street,
 		String district,
 		String city,

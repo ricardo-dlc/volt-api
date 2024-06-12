@@ -1,12 +1,12 @@
 package med.volt.api.medic;
 
-import med.volt.api.address.AddressData;
+import med.volt.api.address.AddressDTO;
 
-public record MedicRegisterData(
+public record MedicDTO(
 		String fullName,
 		String email,
 		String document,
 		Specialty speciality,
-		AddressData address) {
+		AddressDTO address) {
 
 }
