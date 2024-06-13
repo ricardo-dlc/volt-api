@@ -1,4 +1,4 @@
-package med.volt.api.address;
+package med.voll.api.address;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package med.volt.api.address;
+package med.voll.api.address;
 
 import jakarta.validation.constraints.NotBlank;
 

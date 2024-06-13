@@ -1,4 +1,4 @@
-package med.volt.api.medic;
+package med.voll.api.medic;
 
 public record MedicGetDTO(
 		Long id,

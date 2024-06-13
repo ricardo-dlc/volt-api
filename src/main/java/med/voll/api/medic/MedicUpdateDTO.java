@@ -1,7 +1,7 @@
-package med.volt.api.medic;
+package med.voll.api.medic;
 
 import jakarta.validation.constraints.NotNull;
-import med.volt.api.address.AddressDTO;
+import med.voll.api.address.AddressDTO;
 
 public record MedicUpdateDTO(
 		@NotNull Long id,

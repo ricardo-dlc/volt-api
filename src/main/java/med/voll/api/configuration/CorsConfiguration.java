@@ -1,4 +1,4 @@
-package med.volt.api.configuration;
+package med.voll.api.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;

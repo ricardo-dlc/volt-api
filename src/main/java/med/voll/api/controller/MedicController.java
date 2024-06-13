@@ -1,4 +1,4 @@
-package med.volt.api.controller;
+package med.voll.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.volt.api.medic.Medic;
-import med.volt.api.medic.MedicCreateDTO;
-import med.volt.api.medic.MedicGetDTO;
-import med.volt.api.medic.MedicRepository;
-import med.volt.api.medic.MedicUpdateDTO;
+import med.voll.api.medic.Medic;
+import med.voll.api.medic.MedicCreateDTO;
+import med.voll.api.medic.MedicGetDTO;
+import med.voll.api.medic.MedicRepository;
+import med.voll.api.medic.MedicUpdateDTO;
 
 @RestController
 @RequestMapping("/medics")

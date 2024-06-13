@@ -1,4 +1,4 @@
-package med.volt.api.medic;
+package med.voll.api.medic;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
