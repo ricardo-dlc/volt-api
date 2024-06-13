@@ -38,10 +38,10 @@ public class MedicController {
 		return medicRepository.findByActiveTrue(page).map(MedicGetDTO::new);
 	}
 
-	@PutMapping
+	@PutMapping("/{id}")
 	@Transactional
-	public void updateMedic(@RequestBody @Valid MedicUpdateDTO updatePayload) {
-		Medic medic = medicRepository.getReferenceById(updatePayload.id());
+	public void updateMedic(@PathVariable Long id, @RequestBody @Valid MedicUpdateDTO updatePayload) {
+		Medic medic = medicRepository.getReferenceById(id);
 		medic.update(updatePayload);
 	}
 
