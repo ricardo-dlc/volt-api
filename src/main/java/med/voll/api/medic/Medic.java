@@ -61,4 +61,11 @@ public class Medic {
 	public void deactivate() {
 		this.active = false;
 	}
+
+	@Override
+	public String toString() {
+		return "Medic [id=" + id + ", fullName=" + fullName + ", email=" + email + ", phone=" + phone + ", document="
+				+ document + ", active=" + active + ", speciality=" + speciality + ", address=" + address + "]";
+	}
+
 }

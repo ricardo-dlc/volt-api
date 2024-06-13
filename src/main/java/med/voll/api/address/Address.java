@@ -33,4 +33,11 @@ public class Address {
 
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "Address [street=" + street + ", district=" + district + ", city=" + city + ", number=" + number
+				+ ", complement=" + complement + "]";
+	}
+
 }
