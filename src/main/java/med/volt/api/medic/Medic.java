@@ -29,11 +29,11 @@ public class Medic {
 	private String phone;
 	private String document;
 	@Enumerated(EnumType.STRING)
-	private Specialty speciality;
+	private Speciality speciality;
 	@Embedded
 	private Address address;
 
-	public Medic(MedicDTO medicDTO) {
+	public Medic(MedicCreateDTO medicDTO) {
 		this.fullName = medicDTO.fullName();
 		this.address = new Address(medicDTO.address());
 		this.document = medicDTO.document();

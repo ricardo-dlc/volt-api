@@ -1,6 +1,6 @@
 package med.volt.api.medic;
 
-public enum Specialty {
+public enum Speciality {
 	ORTHOPEDICS,
 	CARDIOLOGY,
 	GYNECOLOGY,

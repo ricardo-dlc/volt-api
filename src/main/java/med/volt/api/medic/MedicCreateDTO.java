@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.volt.api.address.AddressDTO;
 
-public record MedicDTO(
+public record MedicCreateDTO(
 		@NotBlank String fullName,
 		@NotBlank @Email String email,
 		@NotBlank String phone,
 		@NotBlank @Pattern(regexp = "\\d{4,6}") String document,
-		@NotNull Specialty speciality,
+		@NotNull Speciality speciality,
 		@NotNull @Valid AddressDTO address) {
 
 }
