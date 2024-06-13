@@ -17,6 +17,7 @@ import med.volt.api.medic.Medic;
 import med.volt.api.medic.MedicCreateDTO;
 import med.volt.api.medic.MedicGetDTO;
 import med.volt.api.medic.MedicRepository;
+import med.volt.api.medic.MedicUpdateDTO;
 
 @RestController
 @RequestMapping("/medics")

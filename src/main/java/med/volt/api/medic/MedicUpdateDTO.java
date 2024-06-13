@@ -1,4 +1,4 @@
-package med.volt.api.controller;
+package med.volt.api.medic;
 
 import jakarta.validation.constraints.NotNull;
 import med.volt.api.address.AddressDTO;

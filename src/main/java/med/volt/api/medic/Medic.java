@@ -13,7 +13,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.volt.api.address.Address;
-import med.volt.api.controller.MedicUpdateDTO;
 
 @Table(name = "medics")
 @Entity(name = "Medic")
