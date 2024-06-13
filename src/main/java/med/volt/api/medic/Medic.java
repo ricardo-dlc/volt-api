@@ -28,12 +28,14 @@ public class Medic {
 	private String email;
 	private String phone;
 	private String document;
+	private Boolean active;
 	@Enumerated(EnumType.STRING)
 	private Speciality speciality;
 	@Embedded
 	private Address address;
 
 	public Medic(MedicCreateDTO medicDTO) {
+		this.active = true;
 		this.fullName = medicDTO.fullName();
 		this.address = new Address(medicDTO.address());
 		this.document = medicDTO.document();
@@ -54,5 +56,9 @@ public class Medic {
 		if (updatePayload.address() != null) {
 			this.address = address.update(updatePayload.address());
 		}
+	}
+
+	public void deactivate() {
+		this.active = false;
 	}
 }
