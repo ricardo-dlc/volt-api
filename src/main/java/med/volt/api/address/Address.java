@@ -23,4 +23,14 @@ public class Address {
 		this.number = addressDto.number();
 		this.complement = addressDto.complement();
 	}
+
+	public Address update(AddressDTO address) {
+		this.street = address.street();
+		this.district = address.district();
+		this.city = address.city();
+		this.number = address.number();
+		this.complement = address.complement();
+
+		return this;
+	}
 }

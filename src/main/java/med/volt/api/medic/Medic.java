@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.volt.api.address.Address;
+import med.volt.api.controller.MedicUpdateDTO;
 
 @Table(name = "medics")
 @Entity(name = "Medic")
@@ -40,5 +41,19 @@ public class Medic {
 		this.email = medicDTO.email();
 		this.speciality = medicDTO.speciality();
 		this.phone = medicDTO.phone();
+	}
+
+	public void update(MedicUpdateDTO updatePayload) {
+		if (updatePayload.fullName() != null) {
+			this.fullName = updatePayload.fullName();
+		}
+
+		if (updatePayload.document() != null) {
+			this.document = updatePayload.document();
+		}
+
+		if (updatePayload.address() != null) {
+			this.address = address.update(updatePayload.address());
+		}
 	}
 }
