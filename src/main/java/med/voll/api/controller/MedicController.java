@@ -43,9 +43,9 @@ public class MedicController {
 	}
 
 	@GetMapping
-	public Page<MedicGetDTO> getMedics(@PageableDefault(size = 5) Pageable page) {
+	public ResponseEntity<Page<MedicGetDTO>> getMedics(@PageableDefault(size = 5) Pageable page) {
 		// return medicRepository.findAll(page).map(MedicGetDTO::new);
-		return medicRepository.findByActiveTrue(page).map(MedicGetDTO::new);
+		return ResponseEntity.ok(medicRepository.findByActiveTrue(page).map(MedicGetDTO::new));
 	}
 
 	@PutMapping("/{id}")
