@@ -1,9 +1,12 @@
 package med.voll.api.controller;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -28,8 +32,14 @@ public class MedicController {
 	private MedicRepository medicRepository;
 
 	@PostMapping
-	public void registerMedic(@RequestBody @Valid MedicCreateDTO medicDTO) {
-		medicRepository.save(new Medic(medicDTO));
+	public ResponseEntity<MedicGetDTO> registerMedic(@RequestBody @Valid MedicCreateDTO medicDTO,
+			UriComponentsBuilder uriComponentsBuilder) {
+		Medic medic = medicRepository.save(new Medic(medicDTO));
+		MedicGetDTO medicGetDTO = new MedicGetDTO(medic);
+
+		URI url = uriComponentsBuilder.path("/medics/{id}").buildAndExpand(medic.getId()).toUri();
+
+		return ResponseEntity.created(url).body(medicGetDTO);
 	}
 
 	@GetMapping
@@ -40,15 +50,18 @@ public class MedicController {
 
 	@PutMapping("/{id}")
 	@Transactional
-	public void updateMedic(@PathVariable Long id, @RequestBody @Valid MedicUpdateDTO updatePayload) {
+	public ResponseEntity<MedicGetDTO> updateMedic(@PathVariable Long id,
+			@RequestBody @Valid MedicUpdateDTO updatePayload) {
 		Medic medic = medicRepository.getReferenceById(id);
 		medic.update(updatePayload);
+		return ResponseEntity.ok(new MedicGetDTO(medic));
 	}
 
 	@DeleteMapping("/{id}")
 	@Transactional
-	public void deleteMedic(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteMedic(@PathVariable Long id) {
 		Medic medic = medicRepository.getReferenceById(id);
 		medic.deactivate();
+		return ResponseEntity.noContent().build();
 	}
 }
