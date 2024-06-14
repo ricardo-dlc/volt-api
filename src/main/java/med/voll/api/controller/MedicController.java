@@ -64,4 +64,11 @@ public class MedicController {
 		medic.deactivate();
 		return ResponseEntity.noContent().build();
 	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<MedicGetDTO> getMedicById(@PathVariable Long id) {
+		Medic medic = medicRepository.getReferenceById(id);
+		MedicGetDTO medicGetDTO = new MedicGetDTO(medic);
+		return ResponseEntity.ok(medicGetDTO);
+	}
 }
