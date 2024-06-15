@@ -1,4 +1,4 @@
-package med.voll.api.infra;
+package med.voll.api.infra.errors;
 
 import java.util.List;
 
