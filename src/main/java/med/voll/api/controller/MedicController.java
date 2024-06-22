@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import med.voll.api.domain.address.Address;
+import med.voll.api.domain.address.AddressRepository;
 import med.voll.api.domain.medic.Medic;
 import med.voll.api.domain.medic.MedicCreateDTO;
 import med.voll.api.domain.medic.MedicGetDTO;
@@ -31,10 +34,21 @@ public class MedicController {
 	@Autowired
 	private MedicRepository medicRepository;
 
+	@Autowired
+	private AddressRepository addressRepository;
+
 	@PostMapping
-	public ResponseEntity<MedicGetDTO> registerMedic(@RequestBody @Valid MedicCreateDTO medicDTO,
+	@Transactional
+	public ResponseEntity<MedicGetDTO> registerMedic(@RequestBody @Valid MedicCreateDTO medicCreateDTO,
 			UriComponentsBuilder uriComponentsBuilder) {
-		Medic medic = medicRepository.save(new Medic(medicDTO));
+		Address address = new Address(medicCreateDTO.address());
+		addressRepository.save(address);
+
+		Medic medic = new Medic(medicCreateDTO);
+		medic.setAddress(address);
+
+		medicRepository.save(medic);
+
 		MedicGetDTO medicGetDTO = new MedicGetDTO(medic);
 
 		URI url = uriComponentsBuilder.path("/medics/{id}").buildAndExpand(medic.getId()).toUri();
@@ -52,7 +66,7 @@ public class MedicController {
 	@Transactional
 	public ResponseEntity<MedicGetDTO> updateMedic(@PathVariable Long id,
 			@RequestBody @Valid MedicUpdateDTO updatePayload) {
-		Medic medic = medicRepository.getReferenceById(id);
+		Medic medic = medicRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Medic not found"));
 		medic.update(updatePayload);
 		return ResponseEntity.ok(new MedicGetDTO(medic));
 	}

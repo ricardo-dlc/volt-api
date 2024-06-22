@@ -1,17 +1,20 @@
 package med.voll.api.domain.medic;
 
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import med.voll.api.domain.address.Address;
 
 @Table(name = "medics")
@@ -31,7 +34,9 @@ public class Medic {
 	private Boolean active;
 	@Enumerated(EnumType.STRING)
 	private Speciality speciality;
-	@Embedded
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "address_id")
+	@Setter
 	private Address address;
 
 	public Medic(MedicCreateDTO medicDTO) {
@@ -49,8 +54,8 @@ public class Medic {
 			this.fullName = updatePayload.fullName();
 		}
 
-		if (updatePayload.document() != null) {
-			this.document = updatePayload.document();
+		if (updatePayload.phone() != null) {
+			this.document = updatePayload.phone();
 		}
 
 		if (updatePayload.address() != null) {
