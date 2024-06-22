@@ -21,4 +21,6 @@ server:
     include-stacktrace: never
 api:
   security:
-    secret: ${API_SECRET}
+    token:
+      secret: ${API_SECRET}
+      issuer: ${TOKEN_ISSUER}

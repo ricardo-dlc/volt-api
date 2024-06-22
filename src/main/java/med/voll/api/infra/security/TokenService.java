@@ -16,10 +16,11 @@ import med.voll.api.domain.user.User;
 
 @Service
 public class TokenService {
-	@Value("${api.security.secret}")
+	@Value("${api.security.token.secret}")
 	private String apiSecret;
 
-	private final String ISSUER = "Voll Med";
+	@Value("${api.security.token.issuer}")
+	private String tokenIssuer;
 
 	public String generateToken(User user) {
 		try {
@@ -29,7 +30,7 @@ public class TokenService {
 			System.out.println(apiSecret);
 			Algorithm algorithm = Algorithm.HMAC256(apiSecret);
 			return JWT.create()
-					.withIssuer(ISSUER)
+					.withIssuer(tokenIssuer)
 					.withSubject(user.getUsername())
 					.withClaim("id", user.getId())
 					.withExpiresAt(expireAt)
@@ -46,7 +47,7 @@ public class TokenService {
 			DecodedJWT jwt;
 			Algorithm algorithm = Algorithm.HMAC256(apiSecret);
 			JWTVerifier verifier = JWT.require(algorithm)
-					.withIssuer(ISSUER)
+					.withIssuer(tokenIssuer)
 					.build();
 
 			jwt = verifier.verify(token);
