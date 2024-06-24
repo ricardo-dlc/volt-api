@@ -55,7 +55,7 @@ public class Medic {
 		}
 
 		if (updatePayload.phone() != null) {
-			this.document = updatePayload.phone();
+			this.phone = updatePayload.phone();
 		}
 
 		if (updatePayload.address() != null) {
