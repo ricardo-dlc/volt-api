@@ -7,4 +7,8 @@ public record AppointmentDetailsDTO(
 		Long patientId,
 		Long medicId,
 		LocalDateTime date) {
+
+	public AppointmentDetailsDTO(Appointment data) {
+		this(data.getId(), data.getPatient().getId(), data.getMedic().getId(), data.getDate());
+	}
 }

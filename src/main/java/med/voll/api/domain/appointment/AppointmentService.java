@@ -27,7 +27,7 @@ public class AppointmentService {
 	@Autowired
 	private List<QueryValidator> validators;
 
-	public void schedule(AppointmentDTO appointmentDTO) {
+	public Appointment schedule(AppointmentDTO appointmentDTO) {
 		Patient patient = patientRepository.findById(appointmentDTO.patientId())
 				.orElseThrow(() -> new DataValidationException("Patient not found"));
 
@@ -42,6 +42,8 @@ public class AppointmentService {
 		System.out.println("Choosen Medic is" + medic);
 		Appointment appointment = new Appointment(patient, medic, appointmentDTO.date());
 		appointmentRepository.save(appointment);
+
+		return appointment;
 	}
 
 	private Medic chooseMedic(AppointmentDTO appointmentDTO) {

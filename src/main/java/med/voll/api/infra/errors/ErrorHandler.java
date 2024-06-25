@@ -1,5 +1,6 @@
 package med.voll.api.infra.errors;
 
+import java.lang.annotation.Repeatable;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -23,7 +25,7 @@ public class ErrorHandler {
 		return ResponseEntity.badRequest().body(errors);
 	}
 
-	@ExceptionHandler(DataValidationException.class)
+	@ExceptionHandler({ DataValidationException.class, ValidationException.class })
 	public ResponseEntity<String> handleDataValidations(Exception e) {
 		return ResponseEntity.badRequest().body(e.getMessage());
 	}
