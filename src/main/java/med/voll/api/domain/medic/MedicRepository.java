@@ -23,6 +23,7 @@ public interface MedicRepository extends JpaRepository<Medic, Long> {
                 AND m.speciality = :speciality
                 AND a.id IS NULL
             ORDER BY FUNCTION('RAND')
+            LIMIT 1
             """)
     Medic getMedicBySpecialityAndNotInDate(Speciality speciality, LocalDateTime date);
 
