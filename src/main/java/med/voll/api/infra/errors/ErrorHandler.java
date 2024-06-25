@@ -1,6 +1,5 @@
 package med.voll.api.infra.errors;
 
-import java.lang.annotation.Repeatable;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;

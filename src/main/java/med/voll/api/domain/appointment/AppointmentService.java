@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
+import med.voll.api.domain.appointment.validations.QueryValidator;
 import med.voll.api.domain.medic.Medic;
 import med.voll.api.domain.medic.MedicRepository;
 import med.voll.api.domain.patient.Patient;
 import med.voll.api.domain.patient.PatientRepository;
 import med.voll.api.infra.errors.DataValidationException;
-import med.voll.api.domain.appointment.validations.QueryValidator;
 
 @Service
 public class AppointmentService {
@@ -39,7 +38,12 @@ public class AppointmentService {
 		validators.forEach(v -> v.validate(appointmentDTO));
 
 		Medic medic = chooseMedic(appointmentDTO);
+
+		if (medic == null) {
+			throw new DataValidationException("No medics are available for the selected speciality and schedule time.");
+		}
 		System.out.println("Choosen Medic is" + medic);
+
 		Appointment appointment = new Appointment(patient, medic, appointmentDTO.date());
 		appointmentRepository.save(appointment);
 
