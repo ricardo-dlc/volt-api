@@ -19,7 +19,7 @@ public class MedicHasAppointments implements QueryValidator {
 		var medicHasAppointment = repository.existsByMedicIdAndDate(data.medicId(), data.date());
 
 		if (medicHasAppointment) {
-			throw new ValidationException("This medic already has an appointment ins this hour.");
+			throw new ValidationException("This doctor already has an appointment scheduled at this time.");
 		}
 	}
 }
