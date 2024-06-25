@@ -1,6 +1,8 @@
 package med.voll.api.infra.security;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -24,12 +26,22 @@ public class SecurityFilter extends OncePerRequestFilter {
 	@Autowired
 	private UserRepository userRepository;
 
+	private static final Map<String, String> PERMITTED_PATHS = new HashMap<>();
+
+	static {
+		PERMITTED_PATHS.put("/login", "POST");
+		PERMITTED_PATHS.put("/swagger-ui.html", "GET");
+		PERMITTED_PATHS.put("/v3/api-docs/**", "GET");
+		PERMITTED_PATHS.put("/swagger-ui/**", "GET");
+		PERMITTED_PATHS.put("/favicon.ico", "GET");
+	}
+
 	@Override
 	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
 			@NonNull FilterChain filterChain)
 			throws ServletException, IOException {
 
-		if (isLoginRequest(request)) {
+		if (isPermittedRequest(request)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -43,9 +55,15 @@ public class SecurityFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
-	private boolean isLoginRequest(HttpServletRequest request) {
+	private boolean isPermittedRequest(HttpServletRequest request) {
 		String path = request.getRequestURI();
-		return "/login".equals(path) && "POST".equalsIgnoreCase(request.getMethod());
+		String method = request.getMethod();
+
+		// Check if the path is permitted and if the method matches
+		return PERMITTED_PATHS.entrySet().stream()
+				.anyMatch(entry -> entry.getKey().endsWith("/**")
+						? path.startsWith(entry.getKey().substring(0, entry.getKey().length() - 3))
+						: path.equals(entry.getKey()) && method.equalsIgnoreCase(entry.getValue()));
 	}
 
 	private String getTokenFromHeaders(HttpServletRequest request) {

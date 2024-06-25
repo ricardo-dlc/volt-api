@@ -30,6 +30,7 @@ public class SecurityConfigurations {
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use stateless session management
 				.authorizeHttpRequests(authorizeRequests -> authorizeRequests
 						.requestMatchers(HttpMethod.POST, "/login").permitAll()
+						.requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
 						.anyRequest().authenticated())
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
