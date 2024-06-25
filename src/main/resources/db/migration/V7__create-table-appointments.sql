@@ -5,5 +5,5 @@ CREATE TABLE appointments (
     date DATETIME NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_appointments_medic_id FOREIGN KEY (medic_id) REFERENCES medics (id),
-    CONSTRAINT fk_appointments_patient_id FOREIGN KEY (medic_id) REFERENCES patients (id)
+    CONSTRAINT fk_appointments_patient_id FOREIGN KEY (patient_id) REFERENCES patients (id)
 )
