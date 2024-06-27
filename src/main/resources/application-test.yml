@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: optional:secrets-config-test.properties
+  jpa:
+    show-sql: true
+  datasource:
+    url:  jdbc:mariadb://${DATABASE_HOST}/${DATABASE_NAME}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}

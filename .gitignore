@@ -1,4 +1,4 @@
-secrets-config.properties
+secrets-config*.properties
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

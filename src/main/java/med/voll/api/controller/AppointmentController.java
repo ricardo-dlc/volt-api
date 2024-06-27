@@ -12,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.voll.api.domain.appointment.Appointment;
 import med.voll.api.domain.appointment.AppointmentDTO;
 import med.voll.api.domain.appointment.AppointmentDetailsDTO;
 import med.voll.api.domain.appointment.AppointmentService;
@@ -27,11 +26,9 @@ public class AppointmentController {
 	@PostMapping
 	public ResponseEntity<AppointmentDetailsDTO> scheduleAnAppointment(
 			@RequestBody @Valid AppointmentDTO appointmentDTO, UriComponentsBuilder uriComponentsBuilder) {
-		System.out.println(appointmentDTO);
-		Appointment appointment = appointmentService.schedule(appointmentDTO);
-		AppointmentDetailsDTO appointmentDetailsDTO = new AppointmentDetailsDTO(appointment);
+		AppointmentDetailsDTO appointmentDetailsDTO = appointmentService.schedule(appointmentDTO);
 
-		URI url = uriComponentsBuilder.path("/appointments/{id}").buildAndExpand(appointment.getId()).toUri();
+		URI url = uriComponentsBuilder.path("/appointments/{id}").buildAndExpand(appointmentDetailsDTO.id()).toUri();
 
 		return ResponseEntity.created(url).body(appointmentDetailsDTO);
 	}
